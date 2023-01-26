@@ -33,8 +33,7 @@ def change_column_names(dataframe, columns_to_change: dict):
 
 
 def drop_distances_and_durations_under_10(dataframe: pd.DataFrame):
-    print(
-        f"Number of rows dropped: {len(dataframe) - len(dataframe[(dataframe.covered_distance_m >= 10) & (dataframe.duration_sec >= 10)])}")
+    print(f"Number of rows dropped: {len(dataframe) - len(dataframe[(dataframe.covered_distance_m >= 10) & (dataframe.duration_sec >= 10)])}")
     dataframe = dataframe[(dataframe.covered_distance_m >= 10) & (dataframe.duration_sec >= 10)].copy()
 
     return change_column_data_type(dataframe)
@@ -79,8 +78,7 @@ merged_dataframe = change_column_names(merged_dataframe,
                                                           "return": "end_time"})
 merged_dataframe = sort_by_column(merged_dataframe, 'start_time')
 
-# Use pathlib to use current working directory
-
+# Using pathlib to use current working directory
 dataframe_to_csv(merged_dataframe, Path.cwd() / "data" / "bikedata")
 
 # Process station_data.csv data
@@ -91,4 +89,5 @@ station_data = change_column_names(
     station_data, {"id": "station_id", "osoite": "address", "y": "latitude", "x": "longitude"}
 )
 station_data = sort_by_column(dataframe=station_data, sort_by="station_id")
+
 dataframe_to_csv(station_data, Path.cwd() / "data" / "station_data")
