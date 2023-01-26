@@ -3,7 +3,7 @@
 ## Preqrequisites
 - Python 3.9 or higher
 - Jupyter Notebook (if using the Jupyter Notebook option for the validation script)
-- Access to the data files (2021-05.csv, 2021-06.csv, 2021-07.csv, station_data.csv)
+- Access to the data files (2021-05.csv, 2021-06.csv, 2021-07.csv, station_data.csv) located in ./validate/data.zip
 
 
 ## 1 Description
