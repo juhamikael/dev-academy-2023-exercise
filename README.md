@@ -7,7 +7,7 @@
 - Access to the data files (2021-05.csv, 2021-06.csv, 2021-07.csv, station_data.csv) located in ./validate/data.zip
 
 ## 1 Description
-### 1. Stack & Tools
+### 1.1. Stack & Tools
 - Using Python / Jupyter Notebook for data validation
 - Using [T3 Stack](https://create.t3.gg/) for backend and frontend
    - Next.js
@@ -15,7 +15,7 @@
    - Prisma ORM
    - tRPC (API)
 
-### 2. Information about the data
+### 1.2. Information about the data
 #### Data: 2021-05.csv - 2021-06.csv - 2021-07.csv
 
 ---
@@ -84,7 +84,7 @@ duration_s
 
 ---
 
-### 3. Database design
+### 1.3. Database design
 ```Prisma
 model Trip {
     id                     Int      @id @default(autoincrement())
