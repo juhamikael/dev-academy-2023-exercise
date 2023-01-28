@@ -98,7 +98,9 @@ pip install -r requirements.txt
 python validate_data.py
 ```
 
-### 2. Building the database
+### 2. Database
+![tietokanta arkkitehtuuri](https://user-images.githubusercontent.com/83360104/215285508-b4832bfc-383f-4dfb-861d-12b2ba3020d5.png)
+
 
 #### 1 Push models
 
