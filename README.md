@@ -136,7 +136,7 @@ model Trip {
     duration_s             Int
 }
 ```
-![tietokanta arkkitehtuuri](https://user-images.githubusercontent.com/83360104/215285508-b4832bfc-383f-4dfb-861d-12b2ba3020d5.png)
+![tietokanta arkkitehtuuri (1)](https://user-images.githubusercontent.com/83360104/215287924-8e0fdeb8-89e1-4d26-b3ce-f2fdbf2fc2d2.png)
 
 
 
