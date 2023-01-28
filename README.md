@@ -7,9 +7,15 @@
 - Access to the data files (2021-05.csv, 2021-06.csv, 2021-07.csv, station_data.csv) located in ./validate/data.zip
 
 ## 1 Description
+### Stack & Tools
+- Using Python / Jupyter Notebook for data validation
+- Using [T3 Stack](https://create.t3.gg/) for backend and frontend
+   - Next.js
+   - Tailwind CSS (Styling)
+   - Prisma ORM
+   - tRPC (API)
 
 ### Information about the data
-
 #### Data: 2021-05.csv - 2021-06.csv - 2021-07.csv
 
 ---
@@ -33,7 +39,7 @@
    - Departure station id -> start_station_id
    - Return station id -> end_station_id
 5. All the data were merged into one file and sorted by start_time
-6. The data were saved as 'helsinki_bike_data_new.csv'
+
 
 ---
 
@@ -61,6 +67,22 @@
 4. The data were sorted by station_id saved as 'station_data_new.csv'
 
 ---
+
+#### Both data files were merged into one file resulting following dataframe.
+Latitude and longitude were combined from stations_data.cvs to one column and stored into columns 'start_station_location' and 'end_station_location'
+``` 
+id
+start_time
+end_time
+start_station_id
+start_station_name
+start_station_location
+end_station_id
+end_station_name
+end_station_location
+distance_m
+duration_s
+```
 
 ## 2 Installation
 
@@ -99,7 +121,23 @@ python validate_data.py
 ```
 
 ### 2. Database
+```Prisma
+model Trip {
+    id                     Int      @id @default(autoincrement())
+    start_time             DateTime
+    end_time               DateTime
+    start_station_id       Int
+    start_station_name     String
+    start_station_location String
+    end_station_id         Int
+    end_station_name       String
+    end_station_location   String
+    distance_m             Int
+    duration_s             Int
+}
+```
 ![tietokanta arkkitehtuuri](https://user-images.githubusercontent.com/83360104/215285508-b4832bfc-383f-4dfb-861d-12b2ba3020d5.png)
+
 
 
 #### 1 Push models
