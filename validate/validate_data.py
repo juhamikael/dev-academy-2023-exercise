@@ -1,8 +1,8 @@
+# Read the function docstrings for more in depth information about the functions.
 import pandas as pd
+from tqdm import tqdm
 from pathlib import Path
 
-
-# Bike data validation
 
 def get_data(data_path: str):
     """
@@ -97,7 +97,8 @@ def drop_distances_and_durations_under_10(dataframe: pd.DataFrame):
     dataframe = dataframe[dataframe.covered_distance_m.notna()].copy()
 
     dataframe_new_size = len(dataframe)
-    print(f"Number of rows dropped: {dataframe_size - dataframe_new_size}")
+
+    print(f"Number of rows dropped: {dataframe_size - dataframe_new_size}\n{'-' * 50}")
 
     return dataframe
 
@@ -132,8 +133,7 @@ def change_time_format(dataframe: pd.DataFrame):
 
 
 def dataframe_to_csv(dataframe: pd.DataFrame, filename: str, indx: bool) -> None:
-    """
-    Saves the input dataframe to a csv file with the given filename.
+    """ Saves the input dataframe to a csv file with the given filename.
     When indx is True, the index column will be saved to the csv file.
     Also convert 'start_time' and 'end_time' columns in dataframe to datetime.
     We use this since SQL Lite wants an index column but Postgres does not.
@@ -153,7 +153,8 @@ def dataframe_to_csv(dataframe: pd.DataFrame, filename: str, indx: bool) -> None
     if filename == "helsinki_bike_data":
         dataframe = change_time_format(dataframe)
 
-    dataframe.to_csv(Path.cwd() / 'data' / f"{filename}_new.csv", index=indx)
+    print(f"Saving dataframe, please wait...\n")
+    dataframe.to_csv(Path.cwd() / 'data' / f"{filename}_new.csv", index=indx, sep=";", encoding='utf-8', header=True)
 
     try:
         print(f"Dataframe saved to {filename}_new.csv")
@@ -162,8 +163,7 @@ def dataframe_to_csv(dataframe: pd.DataFrame, filename: str, indx: bool) -> None
 
 
 def sort_by_column(dataframe: pd.DataFrame, sort_by: str):
-    """
-    Sorts the input dataframe by the given column name.
+    """ Sorts the input dataframe by the given column name.
 
     Parameters:
     dataframe (pd.DataFrame): dataframe to be sorted
@@ -175,10 +175,60 @@ def sort_by_column(dataframe: pd.DataFrame, sort_by: str):
     return dataframe.sort_values(by=[sort_by], ascending=True).reset_index(drop=True)
 
 
+def combine_lat_long(row, start: bool = True):
+    if start:
+        return f"{row['start_station_latitude']}, {row['start_station_longitude']}"
+    else:
+        return f"{row['end_station_latitude']}, {row['end_station_longitude']}"
+
+
+def merge_station_data_and_bike_data(bike_data: pd.DataFrame, station_data: pd.DataFrame):
+    """ Merges the input dataframes into one dataframe.
+
+    Merged columns:
+    id, start_time, end_time, start_station_id, start_station_name, start_station_location, end_station_id, end_station_name, end_station_location, distance_m, duration_s
+
+    Parameters:
+    bike_data (pd.DataFrame): dataframe containing bike data
+    station_data (pd.DataFrame): dataframe containing station data
+
+    Returns:
+    pd.DataFrame: merged dataframe
+    """
+    tqdm.pandas()
+    merged_df = pd.merge(bike_data, station_data, left_on="start_station_id", right_on="station_id", how="left")
+    merged_df = pd.merge(merged_df, station_data, left_on="end_station_id", right_on="station_id", how="left")
+    merged_df = merged_df.rename(columns={"name_x": "start_station_name", "address_x": "start_station_address",
+                                          "longitude_x": "start_station_longitude",
+                                          "latitude_x": "start_station_latitude",
+                                          "name_y": "end_station_name", "address_y": "end_station_address",
+                                          "longitude_y": "end_station_longitude", "latitude_y": "end_station_latitude"})
+    merged_df = merged_df.drop(
+        columns=["station_id_x", "station_id_y", "end_station_address", "start_station_address"])
+
+    print(
+        f"\nCombining latitude and longitude into one column, start_station_location and end_station_location\n{'-' * 100}")
+    merged_df["start_station_location"] = merged_df.progress_apply(lambda row: combine_lat_long(row, start=True),
+                                                                   axis=1)
+    merged_df["end_station_location"] = merged_df.progress_apply(lambda row: combine_lat_long(row, start=False), axis=1)
+
+    merged_df = merged_df.drop(
+        columns=["start_station_latitude", "start_station_longitude", "end_station_latitude", "end_station_longitude"])
+
+    merged_df = merged_df.reindex(
+        columns=["start_time", "end_time", "start_station_id", "start_station_name", "start_station_location",
+                 "end_station_id", "end_station_name", "end_station_location",
+                 "distance_m", "duration_s"])
+
+    return merged_df
+
+
 """
 Section: Run the functions
 1. Process bikedata (2021-05, 2021-06, 2021-07) and save the dataframes to csv files.
 """
+
+print(f"Cleaning bikedata\n{'-' * 100}")
 dataframe_1 = change_column_data_type(drop_columns(
     dataframe=drop_distances_and_durations_under_10(replace_chars_on_column(get_data('./data/2021-05.csv'))),
     columns_to_drop=['departure_station_name', 'return_station_name']))
@@ -199,17 +249,17 @@ merged_dataframe = change_column_names(merged_dataframe,
                                                           "departure": "start_time",
                                                           "return": "end_time"})
 
-merged_dataframe = sort_by_column(merged_dataframe, 'start_time')
-dataframe_to_csv(dataframe=merged_dataframe, filename="helsinki_bike_data", indx=True)
-
 """
 2. Process station_data.csv and save the dataframe to a csv file.
 """
-station_data = drop_columns(
+stations = drop_columns(
     replace_chars_on_column(dataframe=get_data('./data/station_data.csv')),
     columns_to_drop=["nimi", "fid", "stad", "operaattor", "namn", "kapasiteet", "adress", "kaupunki"])
 station_data = change_column_names(
-    station_data, {"id": "station_id", "osoite": "address", "y": "latitude", "x": "longitude"}
+    stations, {"id": "station_id", "osoite": "address", "y": "latitude", "x": "longitude"}
 )
-station_data = sort_by_column(dataframe=station_data, sort_by="station_id")
-dataframe_to_csv(dataframe=station_data, filename="station_data", indx=False)
+
+merged_dataframe = merge_station_data_and_bike_data(bike_data=merged_dataframe, station_data=stations)
+
+merged_dataframe = sort_by_column(merged_dataframe, 'start_time')
+dataframe_to_csv(dataframe=merged_dataframe, filename="helsinki_bike_data", indx=True)
