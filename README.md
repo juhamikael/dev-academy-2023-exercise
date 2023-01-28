@@ -7,7 +7,7 @@
 - Access to the data files (2021-05.csv, 2021-06.csv, 2021-07.csv, station_data.csv) located in ./validate/data.zip
 
 ## 1 Description
-### Stack & Tools
+### 1. Stack & Tools
 - Using Python / Jupyter Notebook for data validation
 - Using [T3 Stack](https://create.t3.gg/) for backend and frontend
    - Next.js
@@ -15,7 +15,7 @@
    - Prisma ORM
    - tRPC (API)
 
-### Information about the data
+### 2. Information about the data
 #### Data: 2021-05.csv - 2021-06.csv - 2021-07.csv
 
 ---
@@ -66,8 +66,6 @@
    - x -> longitude
 4. The data were sorted by station_id saved as 'station_data_new.csv'
 
----
-
 #### Both data files were merged into one file resulting following dataframe.
 Latitude and longitude were combined from stations_data.cvs to one column and stored into columns 'start_station_location' and 'end_station_location'
 ``` 
@@ -83,6 +81,29 @@ end_station_location
 distance_m
 duration_s
 ```
+
+---
+
+### 3. Database design
+```Prisma
+model Trip {
+    id                     Int      @id @default(autoincrement())
+    start_time             DateTime
+    end_time               DateTime
+    start_station_id       Int
+    start_station_name     String
+    start_station_location String
+    end_station_id         Int
+    end_station_name       String
+    end_station_location   String
+    distance_m             Int
+    duration_s             Int
+}
+```
+![tietokanta arkkitehtuuri (1)](https://user-images.githubusercontent.com/83360104/215287924-8e0fdeb8-89e1-4d26-b3ce-f2fdbf2fc2d2.png)
+
+
+
 
 ## 2 Installation
 
@@ -121,22 +142,6 @@ python validate_data.py
 ```
 
 ### 2. Database
-```Prisma
-model Trip {
-    id                     Int      @id @default(autoincrement())
-    start_time             DateTime
-    end_time               DateTime
-    start_station_id       Int
-    start_station_name     String
-    start_station_location String
-    end_station_id         Int
-    end_station_name       String
-    end_station_location   String
-    distance_m             Int
-    duration_s             Int
-}
-```
-![tietokanta arkkitehtuuri (1)](https://user-images.githubusercontent.com/83360104/215287924-8e0fdeb8-89e1-4d26-b3ce-f2fdbf2fc2d2.png)
 
 
 
