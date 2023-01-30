@@ -144,11 +144,19 @@ python validate_data.py
 ### 2. Database
 
 - Hosted in [Planetscale](https://planetscale.com/) (Using hobby plan)
-- Recommended tools: [TablePlus](https://tableplus.com/) for populating (importing) CSV datafile
+- Recommended tools: 
+   - [TablePlus](https://tableplus.com/) for populating (importing) CSV datafile
+   - [Jetbrains Datagrip](https://www.jetbrains.com/datagrip/) for querying data etc.
 
 
+#### 1. Connect database 
 
-#### 1 Push models
+1. **Planetbase Connection:** Follow along with this straight forward [Video](https://www.youtube.com/watch?v=HDOfFC_Bl1E) by official Planetscale team, and use TablePlus tool to create connection
+![Untitled-2023-01-30-2328](https://user-images.githubusercontent.com/83360104/215602386-c2d55256-1819-414b-9b9f-c0d5ec18a19c.png)
+2. **Local connection:** WIP
+
+
+#### 2. Push models
 
 ```
 npx prisma db push
