@@ -143,7 +143,7 @@ python validate_data.py
 
 ### 2. Database
 
-- Hosted in [Planetscale](https://planetscale.com/) // Using hobby plan
+- Hosted in [Planetscale](https://planetscale.com/) (Using hobby plan)
 - Recommended tools: [TablePlus](https://tableplus.com/) for populating (importing) CSV datafile
 
 
