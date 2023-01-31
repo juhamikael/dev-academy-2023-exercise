@@ -1,13 +1,15 @@
 # Helsinki city bike app (Dev Academy pre-assignment)
 
-## Preqrequisites
-
+# Preqrequisites
+This application is developed using Windows 10. Therefore, the project build guide,commands and installers are specific to Windows 10.
 - Python 3.9 or higher
 - Jupyter Notebook (if using the Jupyter Notebook option for the validation script)
 - Access to the data files (2021-05.csv, 2021-06.csv, 2021-07.csv, station_data.csv) located in ./validate/data.zip
+- [MySQL (MySQL Workbench)](https://dev.mysql.com/downloads/mysql/)
+- [Tableplus](https://docs.tableplus.com/)
 
-## 1 Description
-### 1.1. Stack & Tools
+# 1 Description
+## 1.1. Stack & Tools
 - Using Python / Jupyter Notebook for data validation
 - Using [T3 Stack](https://create.t3.gg/) for backend and frontend
    - Next.js
@@ -15,12 +17,12 @@
    - Prisma ORM
    - tRPC (API)
 
-### 1.2. Information about the data
-#### Data: 2021-05.csv - 2021-06.csv - 2021-07.csv
+## 1.2. Information about the data
+### Data: 2021-05.csv - 2021-06.csv - 2021-07.csv
 
 ---
 
-#### The data was validated and processed by following:
+### The data was validated and processed by following:
 
 1. Rows removed ~ 1.7 million:
    - Trips under 10 second were removed
@@ -43,11 +45,11 @@
 
 ---
 
-#### Data: station_data.csv
+### Data: station_data.csv
 
 ---
 
-#### The data was validated and processed by following:
+### The data was validated and processed by following:
 
 1. All the column names were converted to lowercase
 2. Dropped columns:
@@ -66,7 +68,7 @@
    - x -> longitude
 4. The data were sorted by station_id saved as 'station_data_new.csv'
 
-#### Both data files were merged into one file resulting following dataframe.
+### Both data files were merged into one file resulting following dataframe.
 Latitude and longitude were combined from stations_data.cvs to one column and stored into columns 'start_station_location' and 'end_station_location'
 ``` 
 id
@@ -84,7 +86,7 @@ duration_s
 
 ---
 
-### 1.3. Database design
+## 1.3. Database design
 ```Prisma
 model Trip {
     id                     Int      @id @default(autoincrement())
@@ -105,13 +107,13 @@ model Trip {
 
 
 
-## 2 Installation
+# 2 Installation
 
-### 1. Validate data with Python
+## 2.1. Validate data with Python
 
 Provided data were processed with Python script which you can find in the 'validation' folder.
 
-#### Data:
+### Data:
 
 ```
 2021-05.csv
@@ -123,12 +125,12 @@ station_data.csv
 There is 2 options to run the validation script:
 With Jupyter Notebook or with pure Python.
 
-#### 1 Jupyter Notebook
+### 2.1.1 Jupyter Notebook
 
 Make sure you have Jupyter Notebook installed.
 Open the validate_data.ipynb file and run all cells.
 
-#### 2 Python
+### 2.1.2 Python
 
 Make sure you have Python 3.9 or higher installed.
 Open the terminal and run the following commands:
@@ -141,30 +143,69 @@ pip install -r requirements.txt
 python validate_data.py
 ```
 
-### 2. Database
+## 2.2. web-app:
+```
+cd web-app
+npm install
+```
+## 2.3. Database
 
 - Hosted in [Planetscale](https://planetscale.com/) (Using hobby plan)
 - Recommended tools: 
    - [TablePlus](https://tableplus.com/) for populating (importing) CSV datafile
    - [Jetbrains Datagrip](https://www.jetbrains.com/datagrip/) for querying data etc.
+   - 
 
 
-#### 1. Connect database 
+### 2.3.1. Connect database 
 
-1. **Planetbase Connection:** Follow along with this straight forward [Video](https://www.youtube.com/watch?v=HDOfFC_Bl1E) by official Planetscale team, and use TablePlus tool to create connection
-![Untitled-2023-01-30-2328](https://user-images.githubusercontent.com/83360104/215602386-c2d55256-1819-414b-9b9f-c0d5ec18a19c.png)
-2. **Local connection:** WIP
+#### 2.3.1.1 **Planetbase Connection:** 
+Follow along with this straight forward [Video](https://www.youtube.com/watch?v=HDOfFC_Bl1E) by official Planetscale team, and use TablePlus tool to create connection
+<br/>
+<br/>
+![planetscale (2)](https://user-images.githubusercontent.com/83360104/215639380-bbd9bc31-78a6-4ca5-bff5-d85be520ef5c.png)
 
+> # From the connect with dropdown, select `Prisma`
 
-#### 2. Push models
+![planetscale](https://user-images.githubusercontent.com/83360104/215636590-4909a16d-5b43-4d97-a8da-9a5ba9c6a91c.png)
+
+##### Create .env file to repo root and store the value planetscale is giving you! See the image above
+
+> ### Open our repo on terminal,  `cd web-app` and run command :
+```
+npx prisma db push
+```
+
+---
+
+#### 2.3.1.2. **Local connection:** 
+I used MySQL Workbench while setting server up so it is recommended to follow along with this [Video](https://www.youtube.com/watch?v=u96rVINbAUI) if you don't have it installed. 
+
+If you've set up MySQL server locally before and know how to do it, just skip that video and follow these steps:
+<br/>
+<br/>
+![Step1](https://user-images.githubusercontent.com/83360104/215639471-cbbc5013-568f-429d-adc6-0834c2aaeea1.png)
+![step2-5](https://user-images.githubusercontent.com/83360104/215641448-05e9aedb-8894-4735-8b30-539df6bd4bfe.png)
+
+```
+DATABASE_URL=mysql://root:password@127.0.0.1:3306/helsinki-city-bike
+```
 
 ```
 npx prisma db push
 ```
 
-### 3. Running the backend
+![Step3](https://user-images.githubusercontent.com/83360104/215636120-114a08f4-22cb-433a-a899-189812f5ca6a.png)
 
-#### WIP
+
+
+
+
+
+
+## 3. Running the backend
+
+##### WIP
 
 ### 4. Running the frontend
 
