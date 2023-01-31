@@ -214,13 +214,16 @@ We use TablePlus also for importing since it's a simple way to import data and a
 6. When it's done, hit CTRL + R to reload the data. 
    - On localhost you see it immediately. 
    - With a PlanetScale connection, it might take a while to see the data.
-   - Try to query the data with:   
-   <br/>
+7. Try to query the data with:   
+<br/>
    
-   ```
-   SELECT * FROM trip WHERE start_time BETWEEN '2021-07-05 00:00:00' AND '2021-07-05 23:59:59';
-   ```
-   ![query](https://user-images.githubusercontent.com/83360104/215648377-708dd792-9185-4bfe-8c1c-2ab6173af71f.png)
+```
+SELECT * FROM trip WHERE start_time BETWEEN '2021-07-05 00:00:00' AND '2021-07-05 23:59:59';
+```
+
+<br/>
+
+![query](https://user-images.githubusercontent.com/83360104/215648377-708dd792-9185-4bfe-8c1c-2ab6173af71f.png)
 
 
 
