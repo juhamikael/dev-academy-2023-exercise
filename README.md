@@ -203,14 +203,14 @@ npx prisma db push
 ### 2.3.2 Populate database (Import CSV file)
 We use TablePlus also for importing since it's a simple way to import data and a lot faster than for example, SQL Workbench.
 1. Which ever connection you choce, open your TablePlus connection by doubleclicking the it e.g. `Local - Helsinki-city-bike`.
-2. Right click your `trip` table and choose `from CSV`:  
-![image](https://user-images.githubusercontent.com/83360104/215642820-3faae75e-d878-46b4-891d-602879e24065.png)
-3. Locate the previously created CSV file from repo `\validate\data` and click open
-![image](https://user-images.githubusercontent.com/83360104/215643080-d13574f4-fc82-4306-a5dc-1bd8e8b40afa.png)
+2. Right click your `trip` table and choose `Import -> from CSV`:  
+![image](https://user-images.githubusercontent.com/83360104/215642820-3faae75e-d878-46b4-891d-602879e24065.png)  
+3. Locate the previously created CSV file from repo `\validate\data` and click open  
+![image](https://user-images.githubusercontent.com/83360104/215643080-d13574f4-fc82-4306-a5dc-1bd8e8b40afa.png)  
 4. Change delimiter to `;` and click import
-![import](https://user-images.githubusercontent.com/83360104/215643573-117689f1-b4b6-4d47-bd1c-2c624e76fba8.png)
+![import](https://user-images.githubusercontent.com/83360104/215643573-117689f1-b4b6-4d47-bd1c-2c624e76fba8.png)  
 5. Depending on your connection, this will take a while (longer if you choce PlanetScale)  
-![image](https://user-images.githubusercontent.com/83360104/215643870-a60a484b-7cfe-4f91-935b-fb3640ce93d0.png)
+![image](https://user-images.githubusercontent.com/83360104/215643870-a60a484b-7cfe-4f91-935b-fb3640ce93d0.png)  
 6. When it's done, hit CTRL + R to reload the data. 
    - On localhost you see it immediately. 
    - With a PlanetScale connection, it might take a while to see the data.
