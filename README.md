@@ -184,8 +184,10 @@ I used MySQL Workbench while setting server up so it is recommended to follow al
 If you've set up MySQL server locally before and know how to do it, just skip that video and follow these steps:
 <br/>
 <br/>
-![Step1](https://user-images.githubusercontent.com/83360104/215639471-cbbc5013-568f-429d-adc6-0834c2aaeea1.png)
-![step2-5](https://user-images.githubusercontent.com/83360104/215641448-05e9aedb-8894-4735-8b30-539df6bd4bfe.png)
+![step1-2](https://user-images.githubusercontent.com/83360104/215642140-16d2493d-8676-4654-87b3-8bb32ee8993b.png)  
+<br/>
+![step3-6](https://user-images.githubusercontent.com/83360104/215642225-e82b55d9-f756-4d97-990c-34c17c717660.png)
+<br/>
 
 ```
 DATABASE_URL=mysql://root:password@127.0.0.1:3306/helsinki-city-bike
@@ -195,7 +197,8 @@ DATABASE_URL=mysql://root:password@127.0.0.1:3306/helsinki-city-bike
 npx prisma db push
 ```
 
-![Step3](https://user-images.githubusercontent.com/83360104/215636120-114a08f4-22cb-433a-a899-189812f5ca6a.png)
+![step7-10](https://user-images.githubusercontent.com/83360104/215642258-174640e0-dcc0-4d31-bcfd-fe41201ee5d4.png)
+
 
 
 
