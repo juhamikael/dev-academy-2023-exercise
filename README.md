@@ -3,7 +3,7 @@
 # Preqrequisites
 This application is developed using Windows 10. Therefore, the project build guide,commands and installers are specific to Windows 10.
 - Python 3.9 or higher
-- Jupyter Notebook (if using the Jupyter Notebook option for the validation script)
+- Optional! Jupyter Notebook (if using the Jupyter Notebook option for the validation script) .ipynb file locate inside ./validate/validate_data_ipynb.zip
 - Access to the data files (2021-05.csv, 2021-06.csv, 2021-07.csv, station_data.csv) located in ./validate/data.zip
 - [MySQL (MySQL Workbench)](https://dev.mysql.com/downloads/mysql/)
 - [Tableplus](https://docs.tableplus.com/)
@@ -236,6 +236,5 @@ SELECT * FROM trip WHERE start_time BETWEEN '2021-07-05 00:00:00' AND '2021-07-0
 
 ### TODO
 - Fix typescript and other errors
-- Add pagination
-- ?
+- When going back from location view, return to correct page.
 
