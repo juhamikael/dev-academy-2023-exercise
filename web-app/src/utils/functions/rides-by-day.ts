@@ -30,4 +30,34 @@ const modifyDistance = (distance: number) => {
   const formattedDistance = distanceInKm.toFixed(2);
   return formattedDistance.toString();
 };
-export { modifyTime, modifySeconds, cordinatesWithoutSpaces, modifyDistance };
+const replaceNordics = (text: string) => {
+  const textWithoutNordics = text
+    .replace(/å/g, "a")
+    .replace(/ä/g, "a")
+    .replace(/ö/g, "o");
+  return textWithoutNordics;
+};
+
+const splitDataIntoLists = (data: any) => {
+  // Splitting the data into lists of 20
+  const completeDataList = [];
+  let tempList = [];
+  for (let i = 0; i < data.length; i++) {
+    if (i % 20 === 0 && i !== 0) {
+      completeDataList.push(tempList);
+      tempList = [];
+    }
+    tempList.push(data[i]);
+  }
+  completeDataList.push(tempList);
+  return completeDataList;
+};
+
+export {
+  modifyTime,
+  modifySeconds,
+  cordinatesWithoutSpaces,
+  modifyDistance,
+  replaceNordics,
+  splitDataIntoLists,
+};

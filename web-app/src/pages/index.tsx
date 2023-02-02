@@ -28,7 +28,6 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center ">
-        {/* <Map /> */}
         <h1 className="text-4xl font-bold">
           Welcome to Helsinki city bike app!
         </h1>
@@ -38,7 +37,6 @@ const Home: NextPage = () => {
           onChange={onChange}
           minDate={new Date(2021, 4, 1)}
           maxDate={new Date(2021, 6, 30)}
-          // On click day, navigate to rides-by-day page
           onClickDay={(value: Date) => {
             const format_date = chosenDate(value);
             console.log(format_date);

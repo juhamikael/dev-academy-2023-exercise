@@ -25,9 +25,19 @@ const Location = () => {
   const router = useRouter();
 
   // Getting the coordinates from the query string and storing them in variables
-  const { start_station_location, end_station_location } = router.query;
+  const { start_station_location, end_station_location, page, date } =
+    router.query;
   const startStationLocation = start_station_location?.toString();
   const endStationLocation = end_station_location?.toString();
+  const dateFromQuery = date?.toString();
+  const currentPageFromQuery = page?.toString();
+  const startStationName = router.query.start_station_name?.toString();
+  const EndStationName = router.query.end_station_name?.toString();
+  const idFromQuery = router.query.id?.toString();
+  const durationFromQuery = router.query.duration_s?.toString();
+  const distanceFromQuery = parseFloat(
+    router.query.distance_m?.toString() || "0"
+  );
 
   // Declare states for the coordinates
   const [startStationLatitude, setStartStationLatitude] = useState(0);
@@ -84,11 +94,11 @@ const Location = () => {
       );
     }
   }, [isLoaded, startStationLocation, endStationLocation]);
+  console.log(currentPageFromQuery);
   const center = {
     lat: (startStationLatitude + endStationLatitude) / 2,
     lng: (startStationLongitude + endStationLongitude) / 2,
   };
-
   return isLoaded ? (
     <div>
       <div className="grid grid-cols-2">
@@ -97,17 +107,37 @@ const Location = () => {
             <div>
               <button
                 className=" w-full rounded-xl bg-blue-500 p-5 font-bold text-white hover:bg-blue-400"
-                onClick={() => router.back()}
+                onClick={() => {
+                  router.push(
+                    `/rides-by-day?date=${dateFromQuery}&page=${currentPageFromQuery}`
+                  );
+                }}
               >
                 Back
               </button>
             </div>
-            <h1 className="text-2xl font-bold">
+            <h1 className="text-3xl font-bold">Recommended route</h1>
+            <text className="text-xl font-bold">
+              {startStationName} - {EndStationName}
+            </text>
+
+            <h1 className="mt-5 text-2xl font-bold">
               Distance {modifyDistance(distance)} km
             </h1>
             <h1 className="text-2xl font-bold">
               Expected travel time {modifySeconds(duration)}
             </h1>
+            <div className="mt-5 flex flex-col text-xl font-bold text-green-600">
+              <text>ID#{idFromQuery}</text>
+              <text>{dateFromQuery}</text>
+              <text>
+                {modifyDistance(distanceFromQuery)} km -{" "}
+                {modifySeconds(parseInt(durationFromQuery) || 0)}
+              </text>
+              {distanceFromQuery < 100 ? (
+                <div className="mt-5 text-red-400">Probably a broken bike</div>
+              ) : null}
+            </div>
           </div>
         </div>
         <div className="">

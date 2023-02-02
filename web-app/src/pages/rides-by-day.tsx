@@ -1,49 +1,43 @@
 import { api } from "../utils/api";
 import { useRouter } from "next/router";
-
+import Pagination from "../components/Pagination";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import {
   modifyTime,
   modifySeconds,
   cordinatesWithoutSpaces,
   modifyDistance,
+  replaceNordics,
+  splitDataIntoLists,
 } from "../utils/functions/rides-by-day";
 
 interface IRidesByDayProps {
   dateToShow: string;
 }
 
-const SplitDataIntoLists = (data: any) => {
-  // Splitting the data into lists of 20
-  const completeDataList = [];
-  let tempList = [];
-  for (let i = 0; i < data.length; i++) {
-    if (i % 20 === 0 && i !== 0) {
-      completeDataList.push(tempList);
-      tempList = [];
-    }
-    tempList.push(data[i]);
-  }
-  completeDataList.push(tempList);
-  return completeDataList;
-};
-
 const RidesByDay: React.FC<IRidesByDayProps> = () => {
   const router = useRouter();
-
   const { date } = router.query;
   const dateToShow = date?.toString();
-
   const [bikeData, setBikeData] = useState<any>([]);
   const getAll = api.trip.getAll.useQuery({ date: dateToShow || "" });
+  const [totalRides, setTotalRides] = useState(0);
 
+  const [currentPage, setCurrentPage] = useState(1);
   let firstList: Array<any> = [];
   useEffect(() => {
     if (getAll.isSuccess) {
-      setBikeData(SplitDataIntoLists(getAll.data));
+      setTotalRides(getAll.data.length);
+      setBikeData(splitDataIntoLists(getAll.data));
     }
-  }, [getAll.isSuccess]);
+    if (dateToShow) {
+      // When current page change, modify url
+      router.push({
+        pathname: "/rides-by-day",
+        query: { date: dateToShow, page: currentPage },
+      });
+    }
+  }, [getAll.isSuccess, currentPage]);
 
   if (dateToShow && getAll.isLoading)
     return (
@@ -53,85 +47,97 @@ const RidesByDay: React.FC<IRidesByDayProps> = () => {
     );
 
   if (getAll.isSuccess) {
-    firstList = bikeData[0];
-    console.log(firstList);
+    firstList = bikeData[currentPage - 1];
   }
-
   return (
     <main>
       <div className="my-5 flex items-center justify-center space-x-8">
         <button
           type="button"
-          onClick={() => router.back()}
+          onClick={() => router.push("/")}
           className=" h-10 w-24 rounded-lg bg-blue-500 p-2 font-bold uppercase text-white hover:bg-blue-400"
         >
           Back
         </button>
-        <h2 className="text-lg font-bold">
-          Currently showing rides for the date <> {dateToShow} </>
-        </h2>
+        <div className="mt-5 flex flex-col">
+          <h2 className="text-3xl font-bold">
+            Currently showing rides for the date <> {dateToShow} </>
+          </h2>
+          <text>
+            <span className="text-2xl font-bold">
+              Total rides: <>{totalRides}</>
+            </span>
+          </text>
+        </div>
       </div>
-      <div className="flex justify-center">
-        <table className="mt-10 table-auto">
-          <thead>
-            <tr>
-              <th className="px-4 py-2">Ride ID</th>
-              <th className="px-4 py-2">Start time</th>
-              <th className="px-4 py-2">End time</th>
-              <th className="px-4 py-2">Start station</th>
-              <th className="px-4 py-2">End station</th>
-              <th className="px-4 py-2">Duration</th>
-              <th className="px-4 py-2">Distance</th>
-              <th className="px-4 py-2">Map lopcation</th>
-            </tr>
-          </thead>
-          <tbody>
-            {firstList &&
-              firstList.map((ride: any) => (
-                <tr key={ride.id}>
-                  <td className="border px-4 py-2">{ride.id}</td>
-                  <td className="border px-4 py-2">
-                    {modifyTime(ride.start_time)}
-                  </td>
-                  <td className="border px-4 py-2">
-                    {modifyTime(ride.end_time)}
-                  </td>
-                  <td className="border px-4 py-2">
-                    {ride.start_station_name}
-                  </td>
-                  <td className="border px-4 py-2">{ride.end_station_name}</td>
-                  <td className="border px-4 py-2">
-                    {modifySeconds(ride.duration_s)}
-                  </td>
-                  <td className="border px-4 py-2">
-                    {modifyDistance(ride.distance_m)} km
-                  </td>
-                  <td className="flex justify-center border px-4 py-2">
-                    <div>
-                      <button
-                        className="rounded-xl bg-blue-500 p-2 text-xs font-bold text-white hover:bg-blue-400 "
-                        onClick={() => {}}
-                        type="button"
-                      >
-                        <Link
-                          href={{
-                            pathname: "/location",
-                            query: `start_station_location=${cordinatesWithoutSpaces(
-                              ride.start_station_location
-                            )}&end_station_location=${cordinatesWithoutSpaces(
-                              ride.end_station_location
-                            )}`,
-                          }}
-                        >
-                          Show on map
-                        </Link>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+      <div className="flex flex-col justify-center ">
+        <div className="flex justify-center ">
+          <table className="mt-5 w-11/12 table-auto rounded-t-xl ">
+            <thead className="h-14">
+              <tr className=" bg-gray-800 text-white">
+                <th className="w-1/12 py-1 text-sm">#</th>
+                <th className="w-1/12 py-1 text-sm">Start time</th>
+                <th className="w-1/12 py-1 text-sm">End time</th>
+                <th className="w-3/12 py-1 text-sm">Start station</th>
+                <th className="w-3/12 py-1 text-sm">End station</th>
+                <th className="w-1/12 py-1 text-sm">Duration</th>
+                <th className="w-1/12 py-1 text-sm">Distance</th>
+              </tr>
+            </thead>
+            <tbody className="">
+              {firstList &&
+                firstList.map((ride: any) => (
+                  <tr
+                    className="cursor-pointer content-center text-center hover:bg-blue-100/50"
+                    key={ride.id}
+                    onClick={() => {
+                      router.push({
+                        pathname: "/location",
+                        query: `date=${dateToShow}&page=${currentPage}&start_station_location=${cordinatesWithoutSpaces(
+                          ride.start_station_location
+                        )}&end_station_location=${cordinatesWithoutSpaces(
+                          ride.end_station_location
+                        )}&start_station_name=${replaceNordics(
+                          ride.start_station_name
+                        )}&end_station_name=${replaceNordics(
+                          ride.end_station_name
+                        )}&duration_s=${ride.duration_s}&distance_m=${
+                          ride.distance_m
+                        }&id=${ride.id}`,
+                      });
+                    }}
+                  >
+                    <td className="border px-4 py-2">{ride.id}</td>
+                    <td className="border px-4 py-2">
+                      {modifyTime(ride.start_time)}
+                    </td>
+                    <td className="border px-4 py-2">
+                      {modifyTime(ride.end_time)}
+                    </td>
+                    <td className="border px-4 py-2">
+                      {ride.start_station_name}
+                    </td>
+                    <td className="w-20 border px-4 py-2">
+                      {ride.end_station_name}
+                    </td>
+                    <td className="w-10 border px-4 py-2">
+                      {modifySeconds(ride.duration_s)}
+                    </td>
+                    <td className="border px-4 py-2">
+                      {modifyDistance(ride.distance_m)} km
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="my-5 flex justify-center">
+          <Pagination
+            totalPages={bikeData.length}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       </div>
     </main>
   );
