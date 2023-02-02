@@ -2,6 +2,7 @@ import { api } from "../utils/api";
 import { useRouter } from "next/router";
 import Pagination from "../components/Pagination";
 import { useState, useEffect } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   coordinatesWithoutSpaces,
   getStartTimeFromDate,
@@ -42,8 +43,9 @@ const RidesByDay: React.FC<IRidesByDayProps> = () => {
 
   if (dateToShow && getAll.isLoading)
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center">
-        Loading...
+      <div className="flex min-h-screen flex-col items-center justify-center space-y-5 text-2xl">
+        <text>Loading...</text>
+        <CircularProgress />
       </div>
     );
 
