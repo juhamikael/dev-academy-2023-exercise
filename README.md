@@ -226,7 +226,7 @@ SELECT * FROM trip WHERE start_time BETWEEN '2021-07-05 00:00:00' AND '2021-07-0
 ![query](https://user-images.githubusercontent.com/83360104/215648377-708dd792-9185-4bfe-8c1c-2ab6173af71f.png)
 
 ---
-## Frontend: 
+## Frontend routes: 
 ### Root: `/`
 ![image](https://user-images.githubusercontent.com/83360104/216455844-60693dd1-34fe-461a-ad9f-5b1a1eab976b.png)
 ### Table view: `/rides-by-day?date=2021-05-29`  
