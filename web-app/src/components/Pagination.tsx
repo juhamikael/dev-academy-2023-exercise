@@ -1,3 +1,10 @@
+import {
+  RxCaretLeft,
+  RxDoubleArrowLeft,
+  RxCaretRight,
+  RxDoubleArrowRight,
+} from "react-icons/rx";
+
 interface IPaginationProps {
   totalPages: number;
   currentPage: number;
@@ -15,7 +22,7 @@ const Pagination: React.FC<IPaginationProps> = ({
   const style = `mx-2 w-16 rounded-lg bg-red-400 py-2 text-white hover:bg-red-300 `;
 
   return (
-    <div>
+    <div className="flex justify-center">
       {currentPage !== 1 ? (
         <>
           <button
@@ -24,7 +31,9 @@ const Pagination: React.FC<IPaginationProps> = ({
             disabled={1 === currentPage}
             onClick={() => setCurrentPage(1)}
           >
-            {"<<"}
+            <span className="flex justify-center">
+              <RxDoubleArrowLeft size={25} />
+            </span>
           </button>
           <button
             key={1}
@@ -32,7 +41,9 @@ const Pagination: React.FC<IPaginationProps> = ({
             disabled={1 === currentPage}
             onClick={() => setCurrentPage(currentPage - 1)}
           >
-            {"<"}
+            <span className="flex justify-center">
+              <RxCaretLeft size={30} />
+            </span>
           </button>
         </>
       ) : null}
@@ -60,7 +71,9 @@ const Pagination: React.FC<IPaginationProps> = ({
             disabled={totalPages === currentPage}
             onClick={() => setCurrentPage(currentPage + 1)}
           >
-            {">"}
+            <span className="flex justify-center">
+              <RxCaretRight size={30} />
+            </span>
           </button>
           <button
             key={1}
@@ -68,7 +81,9 @@ const Pagination: React.FC<IPaginationProps> = ({
             disabled={totalPages === currentPage}
             onClick={() => setCurrentPage(totalPages)}
           >
-            {">>"}
+            <span className="flex justify-center">
+              <RxDoubleArrowRight size={25} />
+            </span>
           </button>
         </>
       ) : null}
