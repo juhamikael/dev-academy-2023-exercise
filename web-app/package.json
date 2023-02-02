@@ -14,7 +14,11 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@googlemaps/react-wrapper": "^1.1.35",
+    "@mui/material": "^5.11.7",
+    "@mui/styled-engine-sc": "^5.11.0",
     "@prisma/client": "^4.8.0",
     "@react-google-maps/api": "^2.18.1",
     "@tanstack/react-query": "^4.20.0",
@@ -26,6 +30,8 @@
     "react": "18.2.0",
     "react-calendar": "^4.0.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.7.1",
+    "styled-components": "^5.3.6",
     "superjson": "1.9.1",
     "zod": "^3.20.2"
   },
