@@ -3,7 +3,7 @@
 # Preqrequisites
 This application is developed using Windows 10. Therefore, the project build guide,commands and installers are specific to Windows 10.
 - Python 3.9 or higher
-- Optional! Jupyter Notebook (if using the Jupyter Notebook option for the validation script) .ipynb file locate inside ./validate/validate_data_ipynb.zip
+- **Optional!** Jupyter Notebook (if using the Jupyter Notebook option for the validation script) .ipynb file locate inside ./validate/validate_data_ipynb.zip
 - Access to the data files (2021-05.csv, 2021-06.csv, 2021-07.csv, station_data.csv) located in ./validate/data.zip
 - [MySQL (MySQL Workbench)](https://dev.mysql.com/downloads/mysql/)
 - [Tableplus](https://docs.tableplus.com/)
@@ -226,13 +226,19 @@ SELECT * FROM trip WHERE start_time BETWEEN '2021-07-05 00:00:00' AND '2021-07-0
 ![query](https://user-images.githubusercontent.com/83360104/215648377-708dd792-9185-4bfe-8c1c-2ab6173af71f.png)
 
 ---
-## Frontend: 
+## Frontend preview - pages: 
 ### Root: `/`
-![image](https://user-images.githubusercontent.com/83360104/216356816-214b7157-d4bc-4582-b541-abd8390aecc3.png)
+![image](https://user-images.githubusercontent.com/83360104/216455844-60693dd1-34fe-461a-ad9f-5b1a1eab976b.png)  
+### Loading Screen:
+![image](https://user-images.githubusercontent.com/83360104/216457019-244e142d-cbab-4e6c-a2d0-06a68f3bccfd.png)
+
 ### Table view: `/rides-by-day?date=2021-05-29`  
-![image](https://user-images.githubusercontent.com/83360104/216357080-8000f4c1-1f44-4e54-ada7-bb694ae70c42.png)
-### Google maps view e.g. `/location?start_station_location=60.1733331469852,24.9076704246974&end_station_location=60.1883090916703,24.9123717007068`  
-![image](https://user-images.githubusercontent.com/83360104/216357219-7591ef45-978f-4bc2-831a-4f8d4a783feb.png)
+![image](https://user-images.githubusercontent.com/83360104/216456763-d5b2b9d0-b573-47b2-99ca-4c454c36beb9.png)
+### Google maps view:
+![image](https://user-images.githubusercontent.com/83360104/216456219-4a6d1ac8-45cb-4bf8-95bb-1fee0126a25b.png)
+```
+/location?date=2021-05-29&page=819&start_station_location=60.187712639,24.960554135&end_station_location=60.2244037765729,24.9525612440734&start_station_name=Sornainen%20(M)&end_station_name=Kylavoudintie&duration_s=1388&distance_m=4889&start_time=23:58:05&id=363696
+```
 
 ### TODO
 - Fix typescript and other errors
