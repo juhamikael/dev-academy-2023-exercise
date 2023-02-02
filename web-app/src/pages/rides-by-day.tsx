@@ -62,6 +62,7 @@ const RidesByDay: React.FC<IRidesByDayProps> = () => {
         >
           Back
         </button>
+
         <div className="mt-5 flex flex-col">
           <h2 className="text-3xl font-bold">
             Currently showing rides for the date <> {dateToShow} </>
@@ -75,64 +76,68 @@ const RidesByDay: React.FC<IRidesByDayProps> = () => {
       </div>
       <div className="flex flex-col justify-center ">
         <div className="flex justify-center ">
-          <table className="mt-5 w-11/12 table-auto rounded-t-xl ">
-            <thead className="h-14">
-              <tr className=" bg-gray-800 text-white">
-                <th className="w-1/12 py-1 text-sm">#</th>
-                <th className="w-1/12 py-1 text-sm">Start time</th>
-                <th className="w-1/12 py-1 text-sm">End time</th>
-                <th className="w-3/12 py-1 text-sm">Start station</th>
-                <th className="w-3/12 py-1 text-sm">End station</th>
-                <th className="w-1/12 py-1 text-sm">Duration</th>
-                <th className="w-1/12 py-1 text-sm">Distance</th>
-              </tr>
-            </thead>
-            <tbody className="">
-              {firstList &&
-                firstList.map((ride: any) => (
-                  <tr
-                    className="cursor-pointer content-center text-center hover:bg-blue-100/50"
-                    key={ride.id}
-                    onClick={() => {
-                      router.push({
-                        pathname: "/location",
-                        query: `date=${dateToShow}&page=${currentPage}&start_station_location=${cordinatesWithoutSpaces(
-                          ride.start_station_location
-                        )}&end_station_location=${cordinatesWithoutSpaces(
-                          ride.end_station_location
-                        )}&start_station_name=${replaceNordics(
-                          ride.start_station_name
-                        )}&end_station_name=${replaceNordics(
-                          ride.end_station_name
-                        )}&duration_s=${ride.duration_s}&distance_m=${
-                          ride.distance_m
-                        }&id=${ride.id}`,
-                      });
-                    }}
-                  >
-                    <td className="border px-4 py-2">{ride.id}</td>
-                    <td className="border px-4 py-2">
-                      {modifyTime(ride.start_time)}
-                    </td>
-                    <td className="border px-4 py-2">
-                      {modifyTime(ride.end_time)}
-                    </td>
-                    <td className="border px-4 py-2">
-                      {ride.start_station_name}
-                    </td>
-                    <td className="w-20 border px-4 py-2">
-                      {ride.end_station_name}
-                    </td>
-                    <td className="w-10 border px-4 py-2">
-                      {modifySeconds(ride.duration_s)}
-                    </td>
-                    <td className="border px-4 py-2">
-                      {modifyDistance(ride.distance_m)} km
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+          <div className="mt-5 flex w-11/12 justify-center overflow-hidden rounded-t-2xl">
+            <table className="w-full table-auto">
+              <thead className="h-14">
+                <tr className=" bg-gray-800 text-white">
+                  <th className="w-1/12 py-1 text-sm">#</th>
+                  <th className="w-1/12 py-1 text-sm">Start time</th>
+                  <th className="w-1/12 py-1 text-sm">End time</th>
+                  <th className="w-3/12 py-1 text-sm">Start station</th>
+                  <th className="w-3/12 py-1 text-sm">End station</th>
+                  <th className="w-1/12 py-1 text-sm">Duration</th>
+                  <th className="w-1/12 py-1 text-sm">Distance</th>
+                </tr>
+              </thead>
+              <tbody className="">
+                {firstList &&
+                  firstList.map((ride: any) => (
+                    <tr
+                      className="cursor-pointer content-center text-center hover:bg-blue-100/50"
+                      key={ride.id}
+                      onClick={() => {
+                        router.push({
+                          pathname: "/location",
+                          query: `date=${dateToShow}&page=${currentPage}&start_station_location=${coordinatesWithoutSpaces(
+                            ride.start_station_location
+                          )}&end_station_location=${coordinatesWithoutSpaces(
+                            ride.end_station_location
+                          )}&start_station_name=${replaceNordics(
+                            ride.start_station_name
+                          )}&end_station_name=${replaceNordics(
+                            ride.end_station_name
+                          )}&duration_s=${ride.duration_s}&distance_m=${
+                            ride.distance_m
+                          }&start_time=${getStartTimeFromDate(
+                            ride.start_time
+                          )}&id=${ride.id}`,
+                        });
+                      }}
+                    >
+                      <td className="border px-4 py-2">{ride.id}</td>
+                      <td className="border px-4 py-2">
+                        {modifyTime(ride.start_time)}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {modifyTime(ride.end_time)}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {ride.start_station_name}
+                      </td>
+                      <td className="w-20 border px-4 py-2">
+                        {ride.end_station_name}
+                      </td>
+                      <td className="w-10 border px-4 py-2">
+                        {modifySeconds(ride.duration_s)}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {modifyDistance(ride.distance_m)} km
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         </div>
         <div className="my-5 flex justify-center">
           <Pagination
