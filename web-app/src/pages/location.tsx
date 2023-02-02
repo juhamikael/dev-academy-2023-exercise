@@ -12,6 +12,9 @@ import {
 const splitCoordinates = (coordinates: string) => {
   return coordinates.split(",");
 };
+const replaceHyphenFromDate = (date: string) => {
+  return date.replace("-", "/");
+};
 
 const Location = () => {
   const apikey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
@@ -105,6 +108,7 @@ const Location = () => {
       );
     }
   }, [isLoaded, startStationLocation, endStationLocation]);
+
   const center = {
     lat: (startStationLatitude + endStationLatitude) / 2,
     lng: (startStationLongitude + endStationLongitude) / 2,
@@ -133,7 +137,8 @@ const Location = () => {
               </text>
               <text>
                 <span className="text-black">Start time </span>
-                {dateFromQuery} - {startTimeFromQuery}
+                {replaceHyphenFromDate(dateFromQuery || "")} -{" "}
+                {startTimeFromQuery}
               </text>
               <text>
                 <span className="text-black">Distance </span>
