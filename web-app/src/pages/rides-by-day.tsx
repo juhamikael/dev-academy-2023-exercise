@@ -3,10 +3,11 @@ import { useRouter } from "next/router";
 import Pagination from "../components/Pagination";
 import { useState, useEffect } from "react";
 import {
-  modifyTime,
-  modifySeconds,
-  cordinatesWithoutSpaces,
+  coordinatesWithoutSpaces,
+  getStartTimeFromDate,
   modifyDistance,
+  modifySeconds,
+  modifyTime,
   replaceNordics,
   splitDataIntoLists,
 } from "../utils/functions/rides-by-day";
