@@ -10,8 +10,7 @@ import {
 } from "@react-google-maps/api";
 
 const splitCoordinates = (coordinates: string) => {
-  const splitCoordinates = coordinates.split(",");
-  return splitCoordinates;
+  return coordinates.split(",");
 };
 
 const Location = () => {
@@ -24,20 +23,32 @@ const Location = () => {
 
   const router = useRouter();
 
-  // Getting the coordinates from the query string and storing them in variables
-  const { start_station_location, end_station_location, page, date } =
-    router.query;
+  // Getting the multiple values from the query string and storing them in variables
+  const {
+    start_station_location,
+    end_station_location,
+    distance_m,
+    page,
+    date,
+    start_station_name,
+    duration_s,
+    end_station_name,
+    id,
+  } = router.query;
+
   const startStationLocation = start_station_location?.toString();
   const endStationLocation = end_station_location?.toString();
   const dateFromQuery = date?.toString();
   const currentPageFromQuery = page?.toString();
-  const startStationName = router.query.start_station_name?.toString();
-  const EndStationName = router.query.end_station_name?.toString();
-  const idFromQuery = router.query.id?.toString();
-  const durationFromQuery = router.query.duration_s?.toString();
-  const distanceFromQuery = parseFloat(
-    router.query.distance_m?.toString() || "0"
-  );
+  const durationFromQuery = duration_s?.toString() ?? "";
+  const distanceFromQuery = distance_m?.toString() ?? "";
+  const startStationNameFromQuery = start_station_name?.toString();
+  const endStationNameFromQuery = end_station_name?.toString();
+  const idFromQuery = id?.toString();
+
+  const parsedDuration = parseInt(durationFromQuery);
+
+  const startTimeFromQuery = router.query.start_time?.toString();
 
   // Declare states for the coordinates
   const [startStationLatitude, setStartStationLatitude] = useState(0);
@@ -94,7 +105,6 @@ const Location = () => {
       );
     }
   }, [isLoaded, startStationLocation, endStationLocation]);
-  console.log(currentPageFromQuery);
   const center = {
     lat: (startStationLatitude + endStationLatitude) / 2,
     lng: (startStationLongitude + endStationLongitude) / 2,
@@ -103,40 +113,52 @@ const Location = () => {
     <div>
       <div className="grid grid-cols-2">
         <div className="flex justify-center">
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center space-y-4">
+            <div className="border-grey-200/20 mt-5 flex flex-col rounded-xl border-2 p-4 text-xl font-bold ">
+              <h1 className="text-3xl font-bold">Recommended route for: </h1>
+              <text className="text-xl font-bold">
+                {startStationNameFromQuery} - {endStationNameFromQuery}
+              </text>
+
+              <h1 className="mt-5 text-2xl font-bold">
+                Distance {modifyDistance(distance)} km
+              </h1>
+              <h1 className="text-2xl font-bold">
+                Expected travel time: {modifySeconds(duration)}
+              </h1>
+            </div>
+            <div className="border-grey-200/20 mt-5 flex flex-col rounded-xl border-2 p-4 text-xl font-bold text-green-600">
+              <text>
+                <span className="text-black">Ride ID </span>#{idFromQuery}
+              </text>
+              <text>
+                <span className="text-black">Start time </span>
+                {dateFromQuery} - {startTimeFromQuery}
+              </text>
+              <text>
+                <span className="text-black">Distance </span>
+                {modifyDistance(parseInt(distanceFromQuery))} km{" "}
+              </text>
+              <text>
+                <span className="text-black">Duration </span>
+                {modifySeconds(parsedDuration)}
+              </text>
+              {parseInt(distanceFromQuery) < 100 ? (
+                <div className="mt-5 text-red-400">Probably a broken bike</div>
+              ) : null}
+            </div>
             <div>
               <button
                 className=" w-full rounded-xl bg-blue-500 p-5 font-bold text-white hover:bg-blue-400"
                 onClick={() => {
                   router.push(
+                    // TODO: 1. When going back from location view, return to correct page.
                     `/rides-by-day?date=${dateFromQuery}&page=${currentPageFromQuery}`
                   );
                 }}
               >
                 Back
               </button>
-            </div>
-            <h1 className="text-3xl font-bold">Recommended route</h1>
-            <text className="text-xl font-bold">
-              {startStationName} - {EndStationName}
-            </text>
-
-            <h1 className="mt-5 text-2xl font-bold">
-              Distance {modifyDistance(distance)} km
-            </h1>
-            <h1 className="text-2xl font-bold">
-              Expected travel time {modifySeconds(duration)}
-            </h1>
-            <div className="mt-5 flex flex-col text-xl font-bold text-green-600">
-              <text>ID#{idFromQuery}</text>
-              <text>{dateFromQuery}</text>
-              <text>
-                {modifyDistance(distanceFromQuery)} km -{" "}
-                {modifySeconds(parseInt(durationFromQuery) || 0)}
-              </text>
-              {distanceFromQuery < 100 ? (
-                <div className="mt-5 text-red-400">Probably a broken bike</div>
-              ) : null}
             </div>
           </div>
         </div>
