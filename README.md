@@ -225,18 +225,17 @@ SELECT * FROM trip WHERE start_time BETWEEN '2021-07-05 00:00:00' AND '2021-07-0
 
 ![query](https://user-images.githubusercontent.com/83360104/215648377-708dd792-9185-4bfe-8c1c-2ab6173af71f.png)
 
+---
+## Frontend: 
+### Root: 
+![image](https://user-images.githubusercontent.com/83360104/216356816-214b7157-d4bc-4582-b541-abd8390aecc3.png)
+### Table view: 
+![image](https://user-images.githubusercontent.com/83360104/216357080-8000f4c1-1f44-4e54-ada7-bb694ae70c42.png)
+### Google maps view
+![image](https://user-images.githubusercontent.com/83360104/216357219-7591ef45-978f-4bc2-831a-4f8d4a783feb.png)
 
+### TODO
+- Fix typescript and other errors
+- Add pagination
+- ?
 
-
-
-## 3. Running the backend
-
-##### WIP
-
-### 4. Running the frontend
-
-#### WIP
-
-## 3 Usage
-
-### WIP
