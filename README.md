@@ -228,7 +228,10 @@ SELECT * FROM trip WHERE start_time BETWEEN '2021-07-05 00:00:00' AND '2021-07-0
 ---
 ## Frontend routes: 
 ### Root: `/`
-![image](https://user-images.githubusercontent.com/83360104/216455844-60693dd1-34fe-461a-ad9f-5b1a1eab976b.png)
+![image](https://user-images.githubusercontent.com/83360104/216455844-60693dd1-34fe-461a-ad9f-5b1a1eab976b.png)  
+### Loading Screen:
+![image](https://user-images.githubusercontent.com/83360104/216457019-244e142d-cbab-4e6c-a2d0-06a68f3bccfd.png)
+
 ### Table view: `/rides-by-day?date=2021-05-29`  
 ![image](https://user-images.githubusercontent.com/83360104/216456763-d5b2b9d0-b573-47b2-99ca-4c454c36beb9.png)
 ### Google maps view:
