@@ -148,7 +148,9 @@ const Location = () => {
                 <span className="text-black">Duration </span>
                 {modifySeconds(parsedDuration)}
               </text>
-              {parseInt(distanceFromQuery) < 100 ? (
+              {(parseInt(distanceFromQuery) < 120 &&
+                parseInt(durationFromQuery) > 480) ||
+              distance < 50 ? (
                 <div className="mt-5 text-red-400">Probably a broken bike</div>
               ) : null}
             </div>
