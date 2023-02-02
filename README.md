@@ -228,11 +228,14 @@ SELECT * FROM trip WHERE start_time BETWEEN '2021-07-05 00:00:00' AND '2021-07-0
 ---
 ## Frontend: 
 ### Root: `/`
-![image](https://user-images.githubusercontent.com/83360104/216356816-214b7157-d4bc-4582-b541-abd8390aecc3.png)
+![image](https://user-images.githubusercontent.com/83360104/216455844-60693dd1-34fe-461a-ad9f-5b1a1eab976b.png)
 ### Table view: `/rides-by-day?date=2021-05-29`  
-![image](https://user-images.githubusercontent.com/83360104/216357080-8000f4c1-1f44-4e54-ada7-bb694ae70c42.png)
-### Google maps view e.g. `/location?start_station_location=60.1733331469852,24.9076704246974&end_station_location=60.1883090916703,24.9123717007068`  
-![image](https://user-images.githubusercontent.com/83360104/216357219-7591ef45-978f-4bc2-831a-4f8d4a783feb.png)
+![image](https://user-images.githubusercontent.com/83360104/216456499-0940ad94-2ab6-49ca-a339-ce7628082f7c.png)
+### Google maps view:
+![image](https://user-images.githubusercontent.com/83360104/216456219-4a6d1ac8-45cb-4bf8-95bb-1fee0126a25b.png)
+```
+/location?date=2021-05-29&page=819&start_station_location=60.187712639,24.960554135&end_station_location=60.2244037765729,24.9525612440734&start_station_name=Sornainen%20(M)&end_station_name=Kylavoudintie&duration_s=1388&distance_m=4889&start_time=23:58:05&id=363696
+```
 
 ### TODO
 - Fix typescript and other errors
