@@ -3,9 +3,7 @@ import { type NextPage } from "next";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import RidesByDay from "./rides-by-day";
 
 const Home: NextPage = () => {
   const [firstDate, setFirstDate] = useState(new Date(2021, 4, 1));

@@ -1,3 +1,5 @@
+//TODO - Fix Typescript errors
+// Parsing error : Cannot read file ....'\tsconfig.json'
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { modifySeconds, modifyDistance } from "../utils/functions/rides-by-day";

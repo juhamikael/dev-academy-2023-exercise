@@ -2,19 +2,6 @@ import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
-// export const tripRouter = createTRPCRouter({
-//   getAll: publicProcedure.query(({ ctx }) => {
-//     return ctx.prisma.trip.findMany({
-//       where: {
-//         start_time: {
-//           gt: new Date("2021-05-01T00:00:11.000Z"),
-//           lt: new Date("2021-05-02T00:00:11.000Z"),
-//         },
-//       },
-//     });
-//   }),
-// });
-
 export const tripRouter = createTRPCRouter({
   getAll: publicProcedure
     .input(z.object({ date: z.string() }))
@@ -26,8 +13,6 @@ export const tripRouter = createTRPCRouter({
           start_time: {
             gt: start_time,
             lt: end_time,
-            // gt: new Date("2021-05-01T00:00:11.000Z"),
-            // lt: new Date("2021-05-02T00:00:11.000Z"),
           },
         },
       });
