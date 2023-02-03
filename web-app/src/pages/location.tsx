@@ -13,7 +13,7 @@ const splitCoordinates = (coordinates: string) => {
   return coordinates.split(",");
 };
 const replaceHyphenFromDate = (date: string) => {
-  return date.replace("-", "/");
+  return date.replace(/-/g, "/");
 };
 
 const Location = () => {
