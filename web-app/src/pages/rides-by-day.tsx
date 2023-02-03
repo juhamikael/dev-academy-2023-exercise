@@ -85,7 +85,7 @@ const RidesByDay = () => {
                   <th className="w-1/12 py-1 text-sm">Distance</th>
                 </tr>
               </thead>
-              <tbody className="">
+              <tbody>
                 {firstList &&
                   firstList.map((ride) => (
                     <tr
