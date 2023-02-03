@@ -122,9 +122,9 @@ const Location = () => {
           <div className="flex flex-col justify-center space-y-4">
             <div className="border-grey-200/20 mt-5 flex flex-col rounded-xl border-2 p-4 text-xl font-bold ">
               <h1 className="text-3xl font-bold">Recommended route for: </h1>
-              <text className="text-xl font-bold">
+              <div className="text-xl font-bold">
                 {startStationNameFromQuery} - {endStationNameFromQuery}
-              </text>
+              </div>
 
               <h1 className="mt-5 text-2xl font-bold">
                 Distance {modifyDistance(distance)} km
@@ -134,22 +134,22 @@ const Location = () => {
               </h1>
             </div>
             <div className="border-grey-200/20 mt-5 flex flex-col rounded-xl border-2 p-4 text-xl font-bold text-green-600">
-              <text>
+              <div>
                 <span className="text-black">Ride ID </span>#{idFromQuery}
-              </text>
-              <text>
+              </div>
+              <div>
                 <span className="text-black">Start time </span>
                 {replaceHyphenFromDate(dateFromQuery || "")} -{" "}
                 {startTimeFromQuery}
-              </text>
-              <text>
+              </div>
+              <div>
                 <span className="text-black">Distance </span>
                 {modifyDistance(parseInt(distanceFromQuery))} km{" "}
-              </text>
-              <text>
+              </div>
+              <div>
                 <span className="text-black">Duration </span>
                 {modifySeconds(parsedDuration)}
-              </text>
+              </div>
               {(parseInt(distanceFromQuery) < 120 &&
                 parseInt(durationFromQuery) > 480) ||
               distance < 50 ? (

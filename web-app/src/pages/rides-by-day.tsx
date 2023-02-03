@@ -40,7 +40,7 @@ const RidesByDay = () => {
   if (dateToShow && getAll.isLoading)
     return (
       <div className="flex min-h-screen flex-col items-center justify-center space-y-5 text-2xl">
-        <text>Loading...</text>
+        <div>Loading...</div>
         <CircularProgress />
       </div>
     );
@@ -63,11 +63,11 @@ const RidesByDay = () => {
           <h2 className="text-3xl font-bold">
             Currently showing rides for the date <> {dateToShow} </>
           </h2>
-          <text>
+          <div>
             <span className="text-2xl font-bold">
               Total rides: <>{totalRides}</>
             </span>
-          </text>
+          </div>
         </div>
       </div>
       <div className="flex flex-col justify-center ">

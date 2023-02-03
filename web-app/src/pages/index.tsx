@@ -30,7 +30,7 @@ const Home: NextPage = () => {
         <h1 className="text-4xl font-bold">
           Welcome to Helsinki city bike app!
         </h1>
-        <text className="text-center text-2xl ">Choose a date</text>
+        <div className="text-center text-2xl ">Choose a date</div>
         <Calendar
           value={firstDate}
           onChange={onChange}
