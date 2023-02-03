@@ -13,11 +13,7 @@ import {
   splitDataIntoLists,
 } from "../utils/functions/rides-by-day";
 
-interface IRidesByDayProps {
-  dateToShow: string;
-}
-
-const RidesByDay: React.FC<IRidesByDayProps> = () => {
+const RidesByDay = () => {
   const router = useRouter();
   const { date } = router.query;
   const dateToShow = date?.toString();
@@ -91,7 +87,7 @@ const RidesByDay: React.FC<IRidesByDayProps> = () => {
               </thead>
               <tbody className="">
                 {firstList &&
-                  firstList.map((ride: any) => (
+                  firstList.map((ride) => (
                     <tr
                       className="cursor-pointer content-center text-center hover:bg-blue-100/50"
                       key={ride.id}

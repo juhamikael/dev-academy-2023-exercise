@@ -47,7 +47,7 @@ const replaceNordics = (text: string) => {
   return text.replace(/å/g, "a").replace(/ä/g, "a").replace(/ö/g, "o");
 };
 
-const splitDataIntoLists = (data: any) => {
+const splitDataIntoLists = (data) => {
   // Splitting the data into lists of 20
   const completeDataList = [];
   let tempList = [];
