@@ -8,7 +8,14 @@ This application is developed using Windows 10. Therefore, the project build gui
 - [MySQL (MySQL Workbench)](https://dev.mysql.com/downloads/mysql/)
 - [Tableplus](https://docs.tableplus.com/)
 
+
 # 1 Description
+
+## Video preview, (Not working on Safari or Firefox. Recommended to use Chromium browser)
+https://user-images.githubusercontent.com/83360104/216700767-fa6f533f-9b3e-4f4a-a43e-ec67b48e3ac4.mp4
+
+
+
 ## 1.1. Stack & Tools
 - Using Python / Jupyter Notebook for data validation
 - Using [T3 Stack](https://create.t3.gg/) for backend and frontend
