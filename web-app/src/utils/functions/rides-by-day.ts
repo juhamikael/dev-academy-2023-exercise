@@ -1,3 +1,5 @@
+import type { IRide } from "../types/RidesByDay";
+
 const coordinatesWithoutSpaces = (cordinates: string) => {
   return cordinates.replace(/\s/g, "");
 };
@@ -47,16 +49,21 @@ const replaceNordics = (text: string) => {
   return text.replace(/å/g, "a").replace(/ä/g, "a").replace(/ö/g, "o");
 };
 
-const splitDataIntoLists = (data) => {
+const splitDataIntoLists = (data: IRide[]) => {
+  const dataLength = data.length;
+
   // Splitting the data into lists of 20
-  const completeDataList = [];
-  let tempList = [];
-  for (let i = 0; i < data.length; i++) {
+  const completeDataList: IRide[][] = [];
+  let tempList: IRide[] = [];
+  for (let i = 0; i < dataLength; i++) {
     if (i % 20 === 0 && i !== 0) {
       completeDataList.push(tempList);
       tempList = [];
     }
-    tempList.push(data[i]);
+    const item = data[i];
+    if (item) {
+      tempList.push(item);
+    }
   }
   completeDataList.push(tempList);
   return completeDataList;

@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import Pagination from "../components/Pagination";
 import { useState, useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import type { IRide } from "../utils/types/RidesByDay";
+
 import {
   coordinatesWithoutSpaces,
   getStartTimeFromDate,
@@ -17,12 +19,12 @@ const RidesByDay = () => {
   const router = useRouter();
   const { date } = router.query;
   const dateToShow = date?.toString();
-  const [bikeData, setBikeData] = useState<any>([]);
+  const [bikeData, setBikeData] = useState<IRide[][]>([]);
   const getAll = api.trip.getAll.useQuery({ date: dateToShow || "" });
   const [totalRides, setTotalRides] = useState(0);
 
   const [currentPage, setCurrentPage] = useState(1);
-  let firstList: Array<any> = [];
+  let firstList: IRide[] | undefined = [];
   useEffect(() => {
     if (getAll.isSuccess) {
       setTotalRides(getAll.data.length);
