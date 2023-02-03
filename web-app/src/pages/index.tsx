@@ -38,7 +38,7 @@ const Home: NextPage = () => {
           maxDate={new Date(2021, 6, 30)}
           onClickDay={(value: Date) => {
             const format_date = chosenDate(value);
-            router.push({
+            void router.push({
               pathname: "/rides-by-day",
               query: { date: format_date },
             });

@@ -30,7 +30,7 @@ const RidesByDay = () => {
     }
     if (dateToShow) {
       // When current page change, modify url
-      router.push({
+      void router.push({
         pathname: "/rides-by-day",
         query: { date: dateToShow, page: currentPage },
       });
@@ -92,7 +92,7 @@ const RidesByDay = () => {
                       className="cursor-pointer content-center text-center hover:bg-blue-100/50"
                       key={ride.id}
                       onClick={() => {
-                        router.push({
+                        void router.push({
                           pathname: "/location",
                           query: `date=${dateToShow}&page=${currentPage}&start_station_location=${coordinatesWithoutSpaces(
                             ride.start_station_location
