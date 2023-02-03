@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Pagination from "../components/Pagination";
 import { useState, useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useCookies } from "react-cookie";
 import {
   coordinatesWithoutSpaces,
   getStartTimeFromDate,
@@ -13,11 +14,7 @@ import {
   splitDataIntoLists,
 } from "../utils/functions/rides-by-day";
 
-interface IRidesByDayProps {
-  dateToShow: string;
-}
-
-const RidesByDay: React.FC<IRidesByDayProps> = () => {
+const RidesByDay = () => {
   const router = useRouter();
   const { date } = router.query;
   const dateToShow = date?.toString();
@@ -25,7 +22,12 @@ const RidesByDay: React.FC<IRidesByDayProps> = () => {
   const getAll = api.trip.getAll.useQuery({ date: dateToShow || "" });
   const [totalRides, setTotalRides] = useState(0);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pageCookie, setPageCookie] = useCookies(["page"]);
+
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(pageCookie.page) || 1
+  );
+
   let firstList: Array<any> = [];
   useEffect(() => {
     if (getAll.isSuccess) {
@@ -33,7 +35,12 @@ const RidesByDay: React.FC<IRidesByDayProps> = () => {
       setBikeData(splitDataIntoLists(getAll.data));
     }
     if (dateToShow) {
+      setPageCookie("page", currentPage, {
+        path: "/rides-by-day",
+        expires: new Date(Date.now() + 86400 * 1000),
+      });
       // When current page change, modify url
+
       router.push({
         pathname: "/rides-by-day",
         query: { date: dateToShow, page: currentPage },
@@ -53,11 +60,14 @@ const RidesByDay: React.FC<IRidesByDayProps> = () => {
     firstList = bikeData[currentPage - 1];
   }
   return (
-    <main>
+    <div>
       <div className="my-5 flex items-center justify-center space-x-8">
         <button
           type="button"
-          onClick={() => router.push("/")}
+          onClick={() => {
+            router.push("/");
+            setPageCookie("page", 1, { path: "/rides-by-day" });
+          }}
           className=" h-10 w-24 rounded-lg bg-blue-500 p-2 font-bold uppercase text-white hover:bg-blue-400"
         >
           Back
@@ -147,7 +157,7 @@ const RidesByDay: React.FC<IRidesByDayProps> = () => {
           />
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

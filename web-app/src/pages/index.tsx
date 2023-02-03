@@ -1,12 +1,14 @@
 import Head from "next/head";
 import { type NextPage } from "next";
 import Calendar from "react-calendar";
+import {useCookies} from 'react-cookie';
 import "react-calendar/dist/Calendar.css";
 import { useState} from "react";
 import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const [firstDate, setFirstDate] = useState(new Date(2021, 4, 1));
+  const [pageCookie, setPageCookie] = useCookies(['page']);
   const router = useRouter();
 
   const onChange = () => {
@@ -19,6 +21,7 @@ const Home: NextPage = () => {
     return `${date.getFullYear()}-${month}-${day}`;
   };
 
+    setPageCookie('page', 1, {path: '/rides-by-day', expires: new Date(Date.now() + 86400 * 1000)});
   return (
     <>
       <Head>
@@ -38,10 +41,9 @@ const Home: NextPage = () => {
           maxDate={new Date(2021, 6, 30)}
           onClickDay={(value: Date) => {
             const format_date = chosenDate(value);
-            console.log(format_date);
-            router.push({
+              router.push({
               pathname: "/rides-by-day",
-              query: { date: format_date },
+              query: { date: format_date, page: 1 },
             });
           }}
         />
