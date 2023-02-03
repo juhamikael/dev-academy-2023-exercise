@@ -4,8 +4,11 @@ const coordinatesWithoutSpaces = (cordinates: string) => {
   return cordinates.replace(/\s/g, "");
 };
 
-const getStartTimeFromDate = (date: Date) => {
+const getStartTimeFromDate = (date: Date | string | undefined) => {
   // And format it to hh:mm:ss
+  if (!date) {
+    return "00:00:00";
+  }
   const startTime = new Date(date);
   startTime.setHours(startTime.getHours() - 3);
   const hours = startTime.getHours();
@@ -33,7 +36,10 @@ const modifySeconds = (seconds: number) => {
   return formattedTime.toString();
 };
 
-const modifyTime = (time: Date) => {
+const modifyTime = (time: Date | string | undefined) => {
+  if (!time) {
+    return "00:00:00";
+  }
   const newTime = new Date(time);
   newTime.setHours(newTime.getHours() - 3);
   const hours = newTime.getHours();
