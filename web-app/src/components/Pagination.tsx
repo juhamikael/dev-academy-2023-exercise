@@ -26,7 +26,7 @@ const Pagination: React.FC<IPaginationProps> = ({
       {currentPage !== 1 ? (
         <>
           <button
-            key={1}
+            key="double-arrow-left"
             className={style}
             disabled={1 === currentPage}
             onClick={() => setCurrentPage(1)}
@@ -36,7 +36,7 @@ const Pagination: React.FC<IPaginationProps> = ({
             </span>
           </button>
           <button
-            key={1}
+            key="caret-left"
             className={style}
             disabled={1 === currentPage}
             onClick={() => setCurrentPage(currentPage - 1)}
@@ -66,7 +66,7 @@ const Pagination: React.FC<IPaginationProps> = ({
       {currentPage !== totalPages ? (
         <>
           <button
-            key={1}
+            key="caret-right"
             className={style}
             disabled={totalPages === currentPage}
             onClick={() => setCurrentPage(currentPage + 1)}
@@ -76,7 +76,7 @@ const Pagination: React.FC<IPaginationProps> = ({
             </span>
           </button>
           <button
-            key={1}
+            key="double-arrow-right"
             className={style}
             disabled={totalPages === currentPage}
             onClick={() => setCurrentPage(totalPages)}
