@@ -31,7 +31,6 @@ const Location = () => {
     start_station_location,
     end_station_location,
     distance_m,
-    page,
     date,
     start_station_name,
     duration_s,
@@ -42,7 +41,6 @@ const Location = () => {
   const startStationLocation = start_station_location?.toString();
   const endStationLocation = end_station_location?.toString();
   const dateFromQuery = date?.toString();
-  const currentPageFromQuery = page?.toString();
   const durationFromQuery = duration_s?.toString() ?? "";
   const distanceFromQuery = distance_m?.toString() ?? "";
   const startStationNameFromQuery = start_station_name?.toString();
@@ -63,6 +61,7 @@ const Location = () => {
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
   const [directions, setDirections] = useState(null);
+
 
   // Splitting the coordinates into latitude and longitude
   useEffect(() => {
@@ -160,7 +159,7 @@ const Location = () => {
                 onClick={() => {
                   router.push(
                     // TODO: 1. When going back from location view, return to correct page.
-                    `/rides-by-day?date=${dateFromQuery}&page=${currentPageFromQuery}`
+                    `/rides-by-day?date=${dateFromQuery}`
                   );
                 }}
               >
