@@ -81,7 +81,7 @@ const Location = () => {
   useEffect(() => {
     if (isLoaded && startStationLocation && endStationLocation) {
       const directionsService = new google.maps.DirectionsService();
-      directionsService.route(
+      void directionsService.route(
         {
           origin: new google.maps.LatLng(
             startStationLatitude,
@@ -106,8 +106,6 @@ const Location = () => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             setDuration(result.routes[0].legs[0].duration.value);
-          } else {
-            console.error(`error fetching directions ${result}`);
           }
         }
       );
@@ -163,7 +161,7 @@ const Location = () => {
               <button
                 className=" w-full rounded-xl bg-blue-500 p-5 font-bold text-white hover:bg-blue-400"
                 onClick={() => {
-                  router.push(
+                  void router.push(
                     // TODO: 1. When going back from location view, return to correct page.
                     `/rides-by-day?date=${dateFromQuery}`
                   );
