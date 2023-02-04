@@ -18,7 +18,7 @@ import {
 const RidesByDay = () => {
   const router = useRouter();
   const { date } = router.query;
-  const dateToShow = date?.toString();
+  const dateToShow = date?.toString() ?? "";
   const [bikeData, setBikeData] = useState<IRide[][]>([]);
   const getAll = api.trip.getAll.useQuery({ date: dateToShow || "" });
   const [totalRides, setTotalRides] = useState(0);
