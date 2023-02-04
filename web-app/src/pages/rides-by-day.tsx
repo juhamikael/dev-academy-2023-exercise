@@ -55,7 +55,7 @@ const RidesByDay = () => {
       <div className="my-5 flex items-center justify-center space-x-8">
         <button
           type="button"
-          onClick={() => router.push("/")}
+          onClick={() => void router.push("/")}
           className=" h-10 w-24 rounded-lg bg-blue-500 p-2 font-bold uppercase text-white hover:bg-blue-400"
         >
           Back
