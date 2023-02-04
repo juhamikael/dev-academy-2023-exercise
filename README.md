@@ -1,5 +1,7 @@
 # Helsinki city bike app (Dev Academy pre-assignment)
 
+Check live preview: https://dev-academy-2023-exercise.vercel.app/
+
 # Preqrequisites
 This application is developed using Windows 10. Therefore, the project build guide,commands and installers are specific to Windows 10.
 - Python 3.9 or higher
