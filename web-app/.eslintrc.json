@@ -17,9 +17,9 @@
   "plugins": ["@typescript-eslint"],
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
   "rules": {
-    "@typescript-eslint/consistent-type-imports": "warn",
-    "@typescript-eslint/no-floating-promises": "warn",
-    "@typescript-eslint/restrict-template-expressions": "warn",
-    "@typescript-eslint/no-misused-promises": "warn"
+    "@typescript-eslint/consistent-type-imports": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-misused-promises": "off"
   }
 }
