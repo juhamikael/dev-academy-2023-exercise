@@ -38,18 +38,17 @@ const Location = () => {
     id,
   } = router.query;
 
-  const startStationLocation = start_station_location?.toString();
-  const endStationLocation = end_station_location?.toString();
-  const dateFromQuery = date?.toString();
+  const startStationLocation = start_station_location?.toString() ?? "";
+  const endStationLocation = end_station_location?.toString() ?? "";
+  const dateFromQuery = date?.toString() ?? "";
   const durationFromQuery = duration_s?.toString() ?? "";
   const distanceFromQuery = distance_m?.toString() ?? "";
-  const startStationNameFromQuery = start_station_name?.toString();
-  const endStationNameFromQuery = end_station_name?.toString();
-  const idFromQuery = id?.toString();
+  const startStationNameFromQuery = start_station_name?.toString() ?? "";
+  const endStationNameFromQuery = end_station_name?.toString() ?? "";
+  const idFromQuery = id?.toString() ?? "";
+  const startTimeFromQuery = router.query.start_time?.toString() ?? "";
 
   const parsedDuration = parseInt(durationFromQuery);
-
-  const startTimeFromQuery = router.query.start_time?.toString();
 
   // Declare states for the coordinates
   const [startStationLatitude, setStartStationLatitude] = useState(0);
@@ -60,8 +59,8 @@ const Location = () => {
   // Declare states for the distance and duration
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [directions, setDirections] = useState<google.maps.DirectionsResult | null>(null);
-
+  const [directions, setDirections] =
+    useState<google.maps.DirectionsResult | null>(null);
 
   // Splitting the coordinates into latitude and longitude
   useEffect(() => {
