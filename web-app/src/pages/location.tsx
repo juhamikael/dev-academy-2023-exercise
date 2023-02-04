@@ -60,7 +60,7 @@ const Location = () => {
   // Declare states for the distance and duration
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [directions, setDirections] = useState(null);
+  const [directions, setDirections] = useState<google.maps.DirectionsResult | null>(null);
 
 
   // Splitting the coordinates into latitude and longitude
